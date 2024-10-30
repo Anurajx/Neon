@@ -8,12 +8,12 @@ async function loadImages(imagesrc) {
     const imageURL = URL.createObjectURL(imageBlog);
     console.log("error never dies", imageURL);
     //for external window
-    const filename = "";
-    const mimeType = "image/*";
-    const headers = {
-      "Content-Disposition": `attachment; filename="${filename}"`,
-      "Content-Type": mimeType,
-    };
+    //const filename = "";
+    //const mimeType = "image/*";
+    //const headers = {
+    //"Content-Disposition": `attachment; filename="${filename}"`,
+    //"Content-Type": mimeType,
+    //};
     //window.open(imageURL, "_blank", "noopener,noreferrer", headers);
 
     //window end
@@ -27,7 +27,7 @@ async function loadImages(imagesrc) {
 // Function to load the text file with image links
 async function loadImageLinks() {
   try {
-    const response = await fetch("comred.txt"); // Fetch the text file
+    const response = await fetch("excuseapi.txt"); // Fetch the text file
     const text = await response.text(); // Read the file content as text
     const imageLinks = text.split("\n").filter((link) => link.trim() !== ""); // Split by lines and filter empty links
     const gallery = document.getElementById("gallery"); // Get the gallery div
@@ -49,7 +49,7 @@ async function loadImageLinks() {
         downloadlink.href = imageURL; // download link is described after imageurl has been resloved
       });
       console.log("imageurl--", imageURL);
-      downloadlink.download = "wallpaper.png";
+      downloadlink.download = "";
       //download link
       //link tag reddit
       const redditlink = document.createElement("a");
