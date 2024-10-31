@@ -1,9 +1,9 @@
 import requests
 
 # Fetch data from a subreddit
-L=["wallpaper","iphonexwallpapers","phonewallpapers","iWallpaper","Wallpaperdump","Wallpaperengine","iphonewallpaper","wallpapers"]
+L=["wallpaper","phonewallpapers","iWallpaper","Wallpaperdump","Wallpaperengine","wallpapers","Animewallpaper","AnimatedWallpaper",]
 for i in L:
-    response = requests.get('https://www.reddit.com/r/' + i + '/hot.json', headers={'User-agent': 'Mozilla/5.0'})
+    response = requests.get('https://www.reddit.com/r/' + i + '/new.json', headers={'User-agent': 'Mozilla/5.0'})
     data = response.json()
     f=open("excuseapi.txt","a+")
     # Extract image URLs

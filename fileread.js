@@ -1,23 +1,22 @@
 async function loadImages(imagesrc) {
   try {
-    const image = await fetch(imagesrc);
+    const response = await fetch(
+      `http://localhost:3000/load-images?url=${imagesrc}`
+    );
+    const imageData = await response.blob();
+    const imageURL = URL.createObjectURL(imageData);
+    console.log("error never dies", imageURL);
+    return imageURL;
+    /*
+    const image = await fetch(imagesrc); //used get instead of fetch
     if (!image.ok) {
       throw new Error(`image fetch error! status: ${image.status}`);
     }
     const imageBlog = await image.blob();
     const imageURL = URL.createObjectURL(imageBlog);
     console.log("error never dies", imageURL);
-    //for external window
-    //const filename = "";
-    //const mimeType = "image/*";
-    //const headers = {
-    //"Content-Disposition": `attachment; filename="${filename}"`,
-    //"Content-Type": mimeType,
-    //};
-    //window.open(imageURL, "_blank", "noopener,noreferrer", headers);
-
-    //window end
     return imageURL;
+    */
   } catch (error) {
     console.error("Error loading image:", error);
     return null;
