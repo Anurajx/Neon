@@ -1,7 +1,7 @@
 async function loadImages(imagesrc) {
   try {
     const response = await fetch(
-      `https://neon-mauve.vercel.app/api/?url=${imagesrc}`
+      `https://neon-mauve.vercel.app/api/load-images?url=${imagesrc}`
     );
     const imageData = await response.blob();
     const imageURL = URL.createObjectURL(imageData);
