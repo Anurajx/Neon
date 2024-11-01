@@ -23,26 +23,46 @@ async function loadImages(imagesrc) {
   }
 }
 
-// Function to load the text file with image links
-async function loadImageLinks() {
+// Function to read text file seprately
+async function readTextFile(offset, limit) {
+  const response = await fetch("excuseapi.txt"); // Fetch the text file
+  const text = await response.text(); // Read the file content as text
+  const imageLinks = text.split("\n").filter((link) => link.trim() !== "");
+  const reversedLinks = imageLinks.reverse();
+  const paginatedLinks = reversedLinks.slice(offset, offset + limit);
+  return paginatedLinks;
+}
+
+// function to paginate the images
+
+// Function to load image boxes
+async function loadImageLinks(offset = 0, limit = 10) {
   try {
+    /*
     const response = await fetch("excuseapi.txt"); // Fetch the text file
     const text = await response.text(); // Read the file content as text
-    const imageLinks = text.split("\n").filter((link) => link.trim() !== ""); // Split by lines and filter empty links
+    const imageLinks = text.split("\n").filter((link) => link.trim() !== ""); */ // Split by lines and filter empty links
+    const imageLinks = await readTextFile(offset, limit);
+
+    //copy pasted
+    //copy pasted
     const gallery = document.getElementById("gallery"); // Get the gallery div
+    console.log("imageLinks--", imageLinks);
     // Iterate over each image link and create an img element
     imageLinks.forEach((link) => {
+      console.log("imageLinks--", link);
       const div = document.createElement("div"); //main div used as holder of each image
+      div.id = link.trim();
       div.classList.add("relative", "group", "overflow-hidden");
-      //download img
+      //download icon img
       const img1 = document.createElement("img");
       img1.classList.add("relative", "group", "overflow-hidden", "w-10");
       img1.src = "./Media/downloadicon.png";
-      //download img
+      //download icon img
       //download link
       const downloadlink = document.createElement("a");
       downloadlink.id = "downloadlink";
-      imageURL = loadImages(link.trim());
+      imageURL = loadImages(link.trim()); // link.trim()
       imageURL.then((imageURL) => {
         // check for imageurl
         downloadlink.href = imageURL; // download link is described after imageurl has been resloved
@@ -61,6 +81,7 @@ async function loadImageLinks() {
       //link img
 
       const img = document.createElement("img"); // Create an img tag
+      img.id = "imageid"; //using image src as image id
       img.src = link.trim(); // Set the src to the image link
       img.classList.add(
         "brightness-100",
@@ -105,3 +126,11 @@ async function loadImageLinks() {
 
 // Call the function to load the images on page load
 loadImageLinks();
+
+let offset = 0;
+let limit = 10;
+async function loadMoreImages() {
+  offset += limit;
+  await loadImageLinks(offset, limit);
+}
+setInterval(loadMoreImages, 10000);
