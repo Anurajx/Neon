@@ -1,7 +1,7 @@
 async function loadImages(imagesrc) {
   try {
     const response = await fetch(
-      `http://localhost:3000/load-images?url=${imagesrc}`
+      `https://your-project-name.vercel.app/api/?url=${imagesrc}`
     );
     const imageData = await response.blob();
     const imageURL = URL.createObjectURL(imageData);
