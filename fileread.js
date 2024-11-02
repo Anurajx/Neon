@@ -1,7 +1,6 @@
 async function loadImages(imagesrc) {
   try {
     const response = await fetch(
-      `http://localhost:3000/load-images?url=${imagesrc}`
       `https://neon-mauve.vercel.app/load-images?url=${imagesrc}`
     );
     const imageData = await response.blob();
