@@ -1,15 +1,7 @@
 async function loadImages(imagesrc) {
   try {
     const response = await fetch(
-      `https://neon-mauve.vercel.app/api/load-images?url=${imagesrc} `,
-      {
-        mode: "cors",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers":
-            "Origin, X-Requested-With, Content-Type, Accept",
-        },
-      }
+      `https://neon-mauve.vercel.app/load-images?url=${imagesrc}`
     );
     const imageData = await response.blob();
     const imageURL = URL.createObjectURL(imageData);

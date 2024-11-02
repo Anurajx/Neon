@@ -13,11 +13,6 @@ app.get("/load-images", (req, res) => {
         console.log("Received response from image URL:");
         console.log("Status code:", response.statusCode);
         console.log("Headers:", response.headers);
-        res.header("Access-Control-Allow-Origin", "*"); //added later
-        res.header(
-          "Access-Control-Allow-Headers",
-          "Origin, X-Requested-With, Content-Type, Accept"
-        ); //added later
         res.set("Access-Control-Allow-Origin", "*");
         res.set(
           "Access-Control-Allow-Headers",
