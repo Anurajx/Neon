@@ -2,7 +2,7 @@ async function loadImages(imagesrc) {
   try {
     console.log("imagesrc--", imagesrc);
     const response = await fetch(
-      `http://neon-mauve.vercel.app/load-images?url=${imagesrc}`
+      `https://neon-1fg8.onrender.com/load-images?url=${imagesrc}` //http://localhost:3000
     );
     const imageData = await response.blob();
     console.log("imageData--", imageData);
