@@ -17,4 +17,5 @@ jobs:
       - name: Install requests and run the script
         run: |
           pip install requests
+          pip install json
           python excuseapinew.py
