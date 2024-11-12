@@ -1,0 +1,21 @@
+name: Run Python Script Every 12 Hours
+
+on:
+  schedule:
+    - cron: "0 */1 * * *" # Runs every 12 hours at 00:00 and 12:00 UTC
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+      - name: Install requests and run the script
+        run: |
+          pip install requests
+          pip install json
+          python excuseapinew.py
