@@ -1,4 +1,4 @@
-name: Run Python Script Every 12 Hours
+name: Run Python Script Every 1 Hours
 
 on:
   schedule:
