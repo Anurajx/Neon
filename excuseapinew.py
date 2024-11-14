@@ -23,14 +23,27 @@ for i in L:
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0'
         ]
         
-        # Enhanced headers with randomized User-Agent to avoid detection
+        # Enhanced headers with randomized User-Agent and additional Reddit-specific headers
+        # Added more headers to mimic browser behavior for Reddit API
         headers = {
             'User-Agent': random.choice(user_agents),
             'Accept': 'application/json',
             'Accept-Language': 'en-US,en;q=0.5',
             'Accept-Encoding': 'gzip, deflate, br',
             'Connection': 'keep-alive',
-            'client-id': 'Sbd6rbN5GdmpD7HyLxR83Q'
+            'client-id': 'Sbd6rbN5GdmpD7HyLxR83Q',
+            # Added Reddit-specific headers
+            'Origin': 'https://www.reddit.com',  # Reddit requires origin header
+            'Referer': 'https://www.reddit.com', # Referer to look like we came from Reddit
+            'DNT': '1',  # Do Not Track header commonly sent by browsers
+            'Sec-Fetch-Dest': 'empty',  # Modern security headers
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Site': 'same-origin',
+            'Pragma': 'no-cache',
+            'Cache-Control': 'no-cache',
+            # Added authorization header with a bearer token placeholder
+            # Note: You'll need to replace this with a valid OAuth token
+            #'Authorization': 'Bearer YOUR_OAUTH_TOKEN_HERE'
         }
         response = requests.get(
             f'https://www.reddit.com/r/{i}/new.json',
