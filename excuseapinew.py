@@ -3,29 +3,29 @@ import time
 import random
 import urllib.request
 
-# Create custom URL opener with Mozilla user agent
-class AppURLopener(urllib.request.FancyURLopener):
-    version = "Mozilla/5.0"
+# Create custom URL opener with full browser user agent
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1'
+}
 
 # Fetch data from a subreddit
 L=["Animewallpaper","WallpapersDoA","wallpaper","phonewallpapers","iWallpaper","Wallpaperdump","Wallpaperengine","wallpapers"]
 P=[]
-# Open file before the loop to avoid NameError
+# Open file before the loop to avoid NameError  
 f = open("excuseapi.txt", "w+")
 
 for i in L:
     try:
-        # Create URL opener instance
-        opener = AppURLopener()
-        
-        # Simplified headers with just the essential User-Agent
-        headers = {
-            'User-Agent': 'Mozilla/5.0',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5'
-        }
+        # Create opener with more complete browser headers
+        opener = urllib.request.build_opener()
+        opener.addheaders = [(k, v) for k,v in headers.items()]
+        urllib.request.install_opener(opener)
         # Add longer delay between requests (5-10 seconds)
-        time.sleep(random.uniform(5, 10))
         response = requests.get(
             f'https://www.reddit.com/r/{i}/new.json',
             headers=headers,
