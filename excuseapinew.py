@@ -1,6 +1,7 @@
 import requests
 import time
 import random
+# Removed cloudscraper import since it's not being used
 # json is built into Python, no need to import it separately
 
 # Fetch data from a subreddit
@@ -11,6 +12,9 @@ f = open("excuseapi.txt", "w+")
 
 for i in L:
     try:
+        # Add delay before each request to avoid rate limiting
+        time.sleep(2)  
+        
         # Randomize User-Agent to appear less bot-like
         user_agents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
