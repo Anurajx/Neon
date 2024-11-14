@@ -1,5 +1,6 @@
 import requests
 import time
+import random
 # json is built into Python, no need to import it separately
 
 # Fetch data from a subreddit
@@ -10,15 +11,23 @@ f = open("excuseapi.txt", "w+")
 
 for i in L:
     try:
-        # Enhanced headers to avoid 403 errors
+        # Randomize User-Agent to appear less bot-like
+        user_agents = [
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15',
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0'
+        ]
+        
+        # Enhanced headers with randomized User-Agent to avoid detection
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'User-Agent': random.choice(user_agents),
             'Accept': 'application/json',
             'Accept-Language': 'en-US,en;q=0.5',
             'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive'
+            'Connection': 'keep-alive',
+            'client-id': 'Sbd6rbN5GdmpD7HyLxR83Q'
         }
-        
         response = requests.get(
             f'https://www.reddit.com/r/{i}/new.json',
             headers=headers,
