@@ -10,42 +10,27 @@ f = open("excuseapi.txt", "w+")
 
 for i in L:
     try:
-        # Randomized browser fingerprint to avoid detection
-        browsers = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0',
-            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/120.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1'
-        ]
-        
-        platforms = ['Windows', 'Linux', 'Macintosh', 'Android', 'iPhone']
-        browsers_ver = ['Chrome', 'Firefox', 'Safari', 'Edge']
+        # Use a more specific mobile User-Agent since those tend to work better
+        user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1'
         
         headers = {
-            'User-Agent': random.choice(browsers),
-            'Accept': random.choice([
-                'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-                'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-            ]),
-            'Accept-Language': f'en-US,en;q=0.{random.randint(5,9)},fr;q=0.{random.randint(1,4)}',
-            'Accept-Encoding': random.choice(['gzip, deflate, br', 'gzip, deflate', 'br']),
-            'Connection': random.choice(['keep-alive', 'close']),
-            'Cache-Control': random.choice(['max-age=0', 'no-cache', 'no-store']),
-            'Sec-Ch-Ua': f'"{random.choice(browsers_ver)}";v="{random.randint(100,120)}"',
-            'Sec-Ch-Ua-Mobile': random.choice(['?0', '?1']),
-            'Sec-Ch-Ua-Platform': f'"{random.choice(platforms)}"',
-            'Sec-Fetch-Dest': random.choice(['document', 'empty']),
-            'Sec-Fetch-Mode': random.choice(['navigate', 'cors']),
-            'Sec-Fetch-Site': random.choice(['none', 'same-origin']),
-            'Sec-Fetch-User': random.choice(['?0', '?1']),
-            'Upgrade-Insecure-Requests': random.choice(['0', '1']),
-            'Pragma': random.choice(['no-cache', '']),
-            'DNT': random.choice(['0', '1'])
+            'User-Agent': user_agent,
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            # Add common mobile headers
+            'X-Requested-With': 'XMLHttpRequest',
+            'Sec-Fetch-Site': 'same-origin',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Dest': 'empty',
+            'Sec-Ch-Ua-Mobile': '?1',
+            'Sec-Ch-Ua-Platform': '"iOS"'
         }
+        
+        # Add longer delay between requests (5-10 seconds)
+        time.sleep(random.uniform(5, 10))
         response = requests.get(
             f'https://www.reddit.com/r/{i}/new.json',
             headers=headers,
