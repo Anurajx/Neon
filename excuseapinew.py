@@ -5,12 +5,15 @@ import urllib.request
 
 # Create custom URL opener with full browser user agent
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-    'Accept-Encoding': 'gzip, deflate, br',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'application/json',
+    'Accept-Encoding': 'gzip, deflate',
     'Accept-Language': 'en-US,en;q=0.5',
     'Connection': 'keep-alive',
-    'Upgrade-Insecure-Requests': '1'
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache',
+    'Client-ID': 'Sbd6rbN5GdmpD7HyLxR83Q',  # Add Reddit API client ID
+    'Authorization': 'W10CzTls8Mfh6A6Tdl-4FsUUvw_CKw'  # Add valid OAuth token
 }
 
 # Fetch data from a subreddit
@@ -21,11 +24,10 @@ f = open("excuseapi.txt", "w+")
 
 for i in L:
     try:
-        # Create opener with more complete browser headers
-        opener = urllib.request.build_opener()
-        opener.addheaders = [(k, v) for k,v in headers.items()]
-        urllib.request.install_opener(opener)
-        # Add longer delay between requests (5-10 seconds)
+        # Create session to maintain cookies and headers
+        session = requests.Session()
+        session.headers.update(headers)
+        #-----------------------------------
         response = requests.get(
             f'https://www.reddit.com/r/{i}/new.json',
             headers=headers,
