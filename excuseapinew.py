@@ -46,8 +46,6 @@ for i in L:
             'Pragma': random.choice(['no-cache', '']),
             'DNT': random.choice(['0', '1'])
         }
-        # List of Reddit domains to randomize requests
-        # Use only reddit.com since other domains are unreliable
         response = requests.get(
             f'https://www.reddit.com/r/{i}/new.json',
             headers=headers,
