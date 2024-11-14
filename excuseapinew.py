@@ -1,6 +1,11 @@
 import requests
 import time
 import random
+import urllib.request
+
+# Create custom URL opener with Mozilla user agent
+class AppURLopener(urllib.request.FancyURLopener):
+    version = "Mozilla/5.0"
 
 # Fetch data from a subreddit
 L=["Animewallpaper","WallpapersDoA","wallpaper","phonewallpapers","iWallpaper","Wallpaperdump","Wallpaperengine","wallpapers"]
@@ -10,25 +15,15 @@ f = open("excuseapi.txt", "w+")
 
 for i in L:
     try:
-        # Use a more specific mobile User-Agent since those tend to work better
-        user_agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1.2 Mobile/15E148 Safari/604.1'
+        # Create URL opener instance
+        opener = AppURLopener()
         
+        # Simplified headers with just the essential User-Agent
         headers = {
-            'User-Agent': user_agent,
+            'User-Agent': 'Mozilla/5.0',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            # Add common mobile headers
-            'X-Requested-With': 'XMLHttpRequest',
-            'Sec-Fetch-Site': 'same-origin',
-            'Sec-Fetch-Mode': 'cors',
-            'Sec-Fetch-Dest': 'empty',
-            'Sec-Ch-Ua-Mobile': '?1',
-            'Sec-Ch-Ua-Platform': '"iOS"'
+            'Accept-Language': 'en-US,en;q=0.5'
         }
-        
         # Add longer delay between requests (5-10 seconds)
         time.sleep(random.uniform(5, 10))
         response = requests.get(
