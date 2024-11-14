@@ -1,6 +1,7 @@
 import requests
 import time
 import random
+from requests.auth import HTTPBasicAuth
 # Removed cloudscraper import since it's not being used
 # json is built into Python, no need to import it separately
 
@@ -9,6 +10,22 @@ L=["Animewallpaper","WallpapersDoA","wallpaper","phonewallpapers","iWallpaper","
 P=[]
 # Open file before the loop to avoid NameError
 f = open("excuseapi.txt", "w+")
+
+client_id = 'Sbd6rbN5GdmpD7HyLxR83Q'         # Replace with your actual client ID
+client_secret = 'W10CzTls8Mfh6A6Tdl-4FsUUvw_CKw' # Replace with your actual client secret
+auth = HTTPBasicAuth(client_id, client_secret)
+headers = {'User-Agent': 'Neon by AstralTesseract'}
+data = {'grant_type': 'client_credentials'}
+response = requests.post(
+    'https://www.reddit.com/api/v1/access_token',
+    auth=auth,
+    data=data,
+    headers=headers
+)
+print(response.status_code)
+#print(response.json())
+access_token = response.json().get('access_token')
+print(access_token)
 
 for i in L:
     try:
@@ -41,9 +58,7 @@ for i in L:
             'Sec-Fetch-Site': 'same-origin',
             'Pragma': 'no-cache',
             'Cache-Control': 'no-cache',
-            # Added authorization header with a bearer token placeholder
-            # Note: You'll need to replace this with a valid OAuth token
-            #'Authorization': 'Bearer YOUR_OAUTH_TOKEN_HERE'
+            'Authorization': access_token,
         }
         response = requests.get(
             f'https://www.reddit.com/r/{i}/new.json',
