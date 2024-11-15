@@ -1,4 +1,4 @@
-name: Run Python Script finallllllllllllll
+name: Run Python Script every 12 hours
 on:
   schedule:
     - cron: "0 */12 * * *" # Runs every 3 minutes
