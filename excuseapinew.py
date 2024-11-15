@@ -88,4 +88,5 @@ for i in L:
 
 for x in P:
     f.write(x+"\n")
+    print('saving',x)
 f.close()
