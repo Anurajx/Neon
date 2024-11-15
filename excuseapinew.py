@@ -6,7 +6,7 @@ from requests.auth import HTTPBasicAuth
 # json is built into Python, no need to import it separately
 
 # Fetch data from a subreddit
-L=["Animewallpaper","WallpapersDoA","wallpaper","phonewallpapers","iWallpaper","Wallpaperdump","Wallpaperengine","wallpapers"]
+L = ["WallpapersDoA", "wallpaper", "phonewallpapers", "iWallpaper", "Wallpaperdump", "Wallpaperengine", "wallpapers", "Animewallpaper"]
 P=[]
 # Open file before the loop to avoid NameError
 f = open("excuseapi.txt", "w+")

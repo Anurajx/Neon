@@ -30,8 +30,7 @@ async function readTextFile(offset, limit) {
   const response = await fetch("excuseapi.txt"); // Fetch the text file
   const text = await response.text(); // Read the file content as text
   const imageLinks = text.split("\n").filter((link) => link.trim() !== "");
-  const reversedLinks = imageLinks.reverse();
-  const paginatedLinks = reversedLinks.slice(offset, offset + limit);
+  const paginatedLinks = imageLinks.slice(offset, offset + limit);
   return paginatedLinks;
 }
 
