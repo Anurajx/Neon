@@ -85,7 +85,7 @@ for i in L:
         continue
     # Add delay between requests to avoid rate limiting
     time.sleep(2)  # This delay is needed even with workflow scheduling to avoid Reddit API rate limits
-
+print("saving images")
 for x in P:
     f.write(x+"\n")
     print('saving',x)
