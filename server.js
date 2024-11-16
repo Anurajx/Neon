@@ -4,6 +4,9 @@ const http = require("http");
 
 const app = express();
 
+http.globalAgent.family = 4;
+https.globalAgent.family = 4;
+
 const dns = require("dns");
 dns.setDefaultResultOrder("ipv4first");
 
