@@ -4,6 +4,9 @@ const http = require("http");
 
 const app = express();
 
+const dns = require("dns");
+dns.setDefaultResultOrder("ipv4first");
+
 app.get("/load-images", (req, res) => {
   const imagesrc = req.query.url;
   if (imagesrc.startsWith("https")) {
