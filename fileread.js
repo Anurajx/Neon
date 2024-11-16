@@ -1,13 +1,10 @@
 async function loadImages(imagesrc) {
   try {
-    console.log("imagesrc--", imagesrc);
     const response = await fetch(
       `https://neon-1fg8.onrender.com/load-images?url=${imagesrc}` //http://localhost:3000
     );
     const imageData = await response.blob();
-    console.log("imageData--", imageData);
     const imageURL = URL.createObjectURL(imageData);
-    console.log("error never dies", imageURL);
     return imageURL;
     /*
     const image = await fetch(imagesrc); //used get instead of fetch
@@ -48,10 +45,8 @@ async function loadImageLinks(offset = 0, limit = 10) {
     //copy pasted
     //copy pasted
     const gallery = document.getElementById("gallery"); // Get the gallery div
-    console.log("imageLinks--", imageLinks);
     // Iterate over each image link and create an img element
     imageLinks.forEach((link) => {
-      console.log("imageLinks--", link);
       const div = document.createElement("div"); //main div used as holder of each image
       div.id = link.trim();
       div.classList.add("relative", "group", "overflow-hidden");
@@ -68,7 +63,6 @@ async function loadImageLinks(offset = 0, limit = 10) {
         // check for imageurl
         downloadlink.href = imageURL; // download link is described after imageurl has been resloved
       });
-      console.log("imageurl--", imageURL);
       downloadlink.download = "";
       //download link
       //link tag reddit
