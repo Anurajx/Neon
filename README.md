@@ -16,3 +16,4 @@ Follow these steps to set up the project locally:
    ```bash
    git clone https://github.com/Anrj007/neon.git
    cd neon
+   node server.js
