@@ -1,0 +1,43 @@
+name: Run Python Script every 24 hours
+on:
+  schedule:
+    - cron: "0 6 * * *" # Runs every 24 hours
+permissions:
+  contents: write # This gives the token permission to write to the repository (i.e., push changes)
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+      - name: Configure git credentials
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Set write permissions for the text file
+        run: |
+          chmod +w excuseapi.txt
+
+      - name: Run script
+        run: |
+          python excuseapinew.py || exit 1
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "anurajupadhyay6@gmail.com"
+          git add excuseapi.txt
+          git commit -m "Update excuseapi.txt"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

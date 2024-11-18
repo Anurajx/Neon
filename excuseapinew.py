@@ -25,7 +25,6 @@ response = requests.post(
 print(response.status_code)
 #print(response.json())
 access_token = response.json().get('access_token')
-print(access_token)
 
 for i in L:
     try:
@@ -66,15 +65,12 @@ for i in L:
             timeout=30
         )
         response.raise_for_status()
-        print(f"Status code for r/{i}: {response.status_code}")
-        
         data = response.json()
         
         # Extract image URLs
         for post in data['data']['children']:
             url = post['data']['url']
             if url.endswith(('jpg', 'jpeg', 'png', 'gif')):
-                print(f"Found image URL: {url}")
                 P.append(url)
                 
     except requests.RequestException as e:
@@ -88,6 +84,5 @@ for i in L:
 print("saving images")
 for x in P:
     f.write(x+"\n")
-    print('saving',x)
 f.close()
 print("done ;)")
