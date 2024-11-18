@@ -58,12 +58,29 @@ async function loadImageLinks(offset = 0, limit = 10) {
       //download link
       const downloadlink = document.createElement("a");
       downloadlink.id = "downloadlink";
-      imageURL = loadImages(link.trim()); // link.trim()
-      imageURL.then((imageURL) => {
-        // check for imageurl
-        downloadlink.href = imageURL; // download link is described after imageurl has been resloved
+      // Add click event listener to load image URL only when clicked
+      downloadlink.addEventListener("click", async (e) => {
+        e.preventDefault(); // Prevent default click behavior
+
+        try {
+          // Only fetch image URL if not already loaded
+          if (!downloadlink.href) {
+            const imageURL = await loadImages(link.trim());
+            if (imageURL) {
+              const tempLink = document.createElement("a");
+              tempLink.href = imageURL;
+              tempLink.download = ""; // Forces download instead of navigation
+              document.body.appendChild(tempLink);
+              tempLink.click(); // Programmatically trigger the download
+              document.body.removeChild(tempLink); // Cleanup
+            } else {
+              console.error("No imageURL generated"); // Debug log
+            }
+          }
+        } catch (err) {
+          console.error("Error in download process:", err); // Debug log
+        }
       });
-      downloadlink.download = "";
       //download link
       //link tag reddit
       const redditlink = document.createElement("a");
