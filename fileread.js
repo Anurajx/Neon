@@ -69,16 +69,16 @@ async function loadImageLinks(offset = 0, limit = 10) {
             if (imageURL) {
               const tempLink = document.createElement("a");
               tempLink.href = imageURL;
-              tempLink.download = ""; // Forces download instead of navigation
+              tempLink.download = ""; // Forces download
               document.body.appendChild(tempLink);
               tempLink.click(); // Programmatically trigger the download
               document.body.removeChild(tempLink); // Cleanup
             } else {
-              console.error("No imageURL generated"); // Debug log
+              console.error("No imageURL generated");
             }
           }
         } catch (err) {
-          console.error("Error in download process:", err); // Debug log
+          console.error("Error in download process:", err);
         }
       });
       //download link
