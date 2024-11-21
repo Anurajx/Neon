@@ -60,7 +60,7 @@ for i in L:
             'Authorization': access_token,
         }
         response = requests.get(
-            f'https://www.reddit.com/r/{i}/new.json',
+            f'https://www.reddit.com/r/{i}/hot.json',
             headers=headers,
             timeout=30
         )
