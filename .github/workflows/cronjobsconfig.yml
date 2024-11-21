@@ -1,7 +1,7 @@
 name: Run Python Script every 24 hours
 on:
   schedule:
-    - cron: "0 6 * * *" # Runs every 24 hours
+    - cron: "*/5 * * * *" # Runs every 24 hours
 permissions:
   contents: write # This gives the token permission to write to the repository (i.e., push changes)
 
