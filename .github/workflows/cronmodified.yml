@@ -1,0 +1,66 @@
+name: Run Python Script every 2 minutes
+on:
+  schedule:
+    - cron: "*/2 * * * *" # Runs every 2 minutes
+  workflow_dispatch: # Added manual trigger option
+permissions:
+  contents: write
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Configure git credentials
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Set write permissions for the text file
+        run: |
+          chmod +w excuseapi.txt
+
+      - name: Run script
+        run: |
+          python excuseapinew.py || exit 1
+
+      - name: Auto Commit and Handle Conflicts
+        run: |
+          # Add changes
+          git add excuseapi.txt
+
+          # Create commit
+          git commit -m "Update excuseapi.txt" || echo "No changes to commit"
+
+          # Try to rebase first
+          if ! git pull --rebase origin main; then
+            echo "::warning::Rebase failed, forcing update"
+            # If rebase fails, reset to main and force our changes
+            git reset --hard origin/main
+            git add excuseapi.txt
+            git commit -m "Update excuseapi.txt" || echo "No changes to commit"
+          fi
+
+          # Force push changes
+          if ! git push origin HEAD:main --force; then
+            echo "::error::Failed to push changes"
+            exit 1
+          fi
+
+          echo "::notice::Successfully updated repository"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
