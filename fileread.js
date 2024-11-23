@@ -102,7 +102,9 @@ async function loadImageLinks(offset = 0, limit = 10) {
         "z-1",
         "hover:shadow-lg", // Large shadow size on hover
         "hover:filter", // Enables filter on hover
-        "hover:brightness-50" // Darken the image on hover
+        "hover:brightness-50", // Darken the image on hover
+        "border-2",
+        "border-gray-800"
       );
       //copypasted--------------------------------------------------------------
       const overlay = document.createElement("div");
