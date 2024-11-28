@@ -1,9 +1,9 @@
-name: Run Python Script every 24 hours
+name: Run Python Script every 14 days
 on:
   schedule:
-    - cron: "0 6 * * *" # Runs every 24 hours
+    - cron: "0 0 */14 * *" # Runs every 14 days
 permissions:
-  contents: write # This gives the token permission to write to the repository (i.e., push changes)
+  contents: write
 
 jobs:
   run-script:
