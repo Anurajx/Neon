@@ -95,6 +95,7 @@ async function loadImageLinks(offset = 0, limit = 10) {
       const img = document.createElement("img"); // Create an img tag
       img.id = "imageid"; //using image src as image id
       img.src = link.trim(); // Set the src to the image link
+      img.alt = "yourwallpaper";
       img.classList.add(
         "brightness-100",
         "transition", // Smooth transition for hover effect

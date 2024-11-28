@@ -33,13 +33,17 @@
         >
           <li>
             <a
+              onclick="closeconfig()"
               href="#gallery"
               class="hover:text-[#B4B4B4] transition duration-200"
               >HOME</a
             >
           </li>
           <li>
-            <a href="#" class="hover:text-[#B4B4B4] transition duration-200"
+            <a
+              onclick="config()"
+              href="#config"
+              class="hover:text-[#B4B4B4] transition duration-200"
               >CONFIG</a
             >
           </li>
@@ -52,6 +56,52 @@
         class="image-gallery grid grid-cols-2 md:grid-cols-3 gap-2"
         id="gallery"
       ></div>
+      <div
+        class="hidden w-screen h-screen bg-black fixed top-0 font-ovo"
+        id="config"
+      >
+        <div
+          class="mt-20 text-gray-400 text-l md:text-xl sm:text-sm flex flex-col gap-5"
+        >
+          <h1>
+            All images are fetched from Reddit and are not stored on our server
+          </h1>
+          <h2 class="text-gray-400">
+            -SUBREDDITS- <br />
+            wallpaper <br />
+            phonewallpapers <br />
+            iWallpaper <br />Wallpaperdump <br />Wallpaperengine <br />
+            wallpapers <br />
+            WallpapersDoA <br />
+            Animewallpaper
+          </h2>
+          <h3>For any information contact me at - anurajupadhyay6@gmail.com</h3>
+          <a
+            href="https://github.com/Anrj007/Neon"
+            class="text-gray-300 hover:text-[#B4B4B4]"
+            >Git repository</a
+          >
+          <div>
+            <h4>Follow me at</h4>
+            <a
+              href="https://github.com/Anrj007"
+              class="text-gray-300 hover:text-[#B4B4B4]"
+              >Github -</a
+            >
+            <a
+              href="https://www.linkedin.com/in/anurajupadhyay6/"
+              class="text-gray-300 hover:text-[#B4B4B4]"
+              >Linkedin</a
+            >
+            <a
+              href="https://x.com/Anrj007"
+              class="text-gray-300 hover:text-[#B4B4B4]"
+              >- X</a
+            >
+          </div>
+          <p>Thanks for using anon ✨</p>
+        </div>
+      </div>
     </div>
     <div
       class="align-center justify-center text-center flex w-screen bottom-0"
@@ -64,6 +114,15 @@
         alt="loading"
       />
     </div>
-    <script></script>
+    <script>
+      function config() {
+        const configed = document.getElementById("config");
+        configed.classList.remove("hidden");
+      }
+      function closeconfig() {
+        const configed = document.getElementById("config");
+        configed.classList.add("hidden");
+      }
+    </script>
   </body>
 </html>
