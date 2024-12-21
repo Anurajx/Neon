@@ -6,16 +6,6 @@ async function loadImages(imagesrc) {
     const imageData = await response.blob();
     const imageURL = URL.createObjectURL(imageData);
     return imageURL;
-    /*
-    const image = await fetch(imagesrc); //used get instead of fetch
-    if (!image.ok) {
-      throw new Error(`image fetch error! status: ${image.status}`);
-    }
-    const imageBlog = await image.blob();
-    const imageURL = URL.createObjectURL(imageBlog);
-    console.log("error never dies", imageURL);
-    return imageURL;
-    */
   } catch (error) {
     console.error("Error loading image:", error);
     return null;
@@ -31,19 +21,10 @@ async function readTextFile(offset, limit) {
   return paginatedLinks;
 }
 
-// function to paginate the images
-
 // Function to load image boxes
 async function loadImageLinks(offset = 0, limit = 10) {
   try {
-    /*
-    const response = await fetch("excuseapi.txt"); // Fetch the text file
-    const text = await response.text(); // Read the file content as text
-    const imageLinks = text.split("\n").filter((link) => link.trim() !== ""); */ // Split by lines and filter empty links
     const imageLinks = await readTextFile(offset, limit);
-
-    //copy pasted
-    //copy pasted
     const gallery = document.getElementById("gallery"); // Get the gallery div
     // Iterate over each image link and create an img element
     imageLinks.forEach((link) => {
@@ -124,7 +105,7 @@ async function loadImageLinks(offset = 0, limit = 10) {
       //to write text to overlay add below in quote
       overlay.innerText = "";
 
-      //copypasted--------------------------------------------------------------
+      //APPENDING
       gallery.appendChild(div); // Add the img tag to the gallery
       div.appendChild(img);
       div.appendChild(overlay);
