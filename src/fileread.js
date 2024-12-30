@@ -34,7 +34,7 @@ async function loadImageLinks(offset = 0, limit = 10) {
       //download icon img
       const img1 = document.createElement("img");
       img1.classList.add("relative", "group", "overflow-hidden", "w-10");
-      img1.src = "./Media/downloadicon.png";
+      img1.src = "../Media/downloadicon.png";
       //download icon img
       //download link
       const downloadlink = document.createElement("a");
@@ -70,7 +70,7 @@ async function loadImageLinks(offset = 0, limit = 10) {
       //link img
       const img2 = document.createElement("img");
       img2.classList.add("relative", "group", "overflow-hidden", "w-10");
-      img2.src = "./Media/linkicon.png";
+      img2.src = "../Media/linkicon.png";
       //link img
 
       const img = document.createElement("img"); // Create an img tag
