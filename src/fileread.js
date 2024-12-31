@@ -33,7 +33,13 @@ async function loadImageLinks(offset = 0, limit = 10) {
       div.classList.add("relative", "group", "overflow-hidden");
       //download icon img
       const img1 = document.createElement("img");
-      img1.classList.add("relative", "group", "overflow-hidden", "w-10");
+      img1.classList.add(
+        "relative",
+        "group",
+        "overflow-hidden",
+        "w-10",
+        "cursor-pointer"
+      );
       img1.src = "./Media/downloadicon.png";
       //download icon img
       //download link
