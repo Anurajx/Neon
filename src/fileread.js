@@ -83,11 +83,10 @@ async function loadImageLinks(offset = 0, limit = 10) {
         "duration-500", // Duration of the transition
         "z-1",
         "hover:shadow-lg", // Large shadow size on hover
-        "hover:filter", // Enables filter on hover
+        "hover:filter",
         "hover:brightness-50", // Darken the image on hover
         "rounded-md"
       );
-      //copypasted--------------------------------------------------------------
       const overlay = document.createElement("div");
       overlay.classList.add(
         "absolute",

@@ -2,8 +2,6 @@ import requests
 import time
 import random
 from requests.auth import HTTPBasicAuth
-# Removed cloudscraper import since it's not being used
-# json is built into Python, no need to import it separately
 
 # Fetch data from a subreddit
 L = ["wallpaper", "phonewallpapers", "iWallpaper", "Wallpaperdump", "Wallpaperengine", "wallpapers","WallpapersDoA", "Animewallpaper"]
@@ -38,9 +36,6 @@ for i in L:
             'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0'
         ]
-        
-        # Enhanced headers with randomized User-Agent and additional Reddit-specific headers
-        # Added more headers to mimic browser behavior for Reddit API
         headers = {
             'User-Agent': random.choice(user_agents),
             'Accept': 'application/json',
@@ -79,8 +74,8 @@ for i in L:
     except (KeyError, ValueError) as e:
         print(f"Error parsing data from r/{i}: {e}")
         continue
-    # Add delay between requests to avoid rate limiting
-    time.sleep(2)  # This delay is needed even with workflow scheduling to avoid Reddit API rate limits
+    # Adding delay between requests to avoid rate limiting
+    time.sleep(2)  
 print("saving images")
 for x in P:
     f.write(x+"\n")
