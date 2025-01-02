@@ -41,7 +41,7 @@ jobs:
       - name: Auto Commit and Handle Conflicts
         run: |
           # Add changes
-          git add excuseapi.txt
+          git add src/excuseapi.txt
 
           # Create commit
           git commit -m "Update src/excuseapi.txt" || echo "No changes to commit"
@@ -51,7 +51,7 @@ jobs:
             echo "::warning::Rebase failed, forcing update"
             # If rebase fails, reset to main and force our changes
             git reset --hard origin/main
-            git add excuseapi.txt
+            git add src/excuseapi.txt
             git commit -m "Update src/excuseapi.txt" || echo "No changes to commit"
           fi
 
