@@ -7,7 +7,7 @@ from requests.auth import HTTPBasicAuth
 L = ["wallpaper", "phonewallpapers", "iWallpaper", "Wallpaperdump", "Wallpaperengine", "wallpapers","WallpapersDoA", "Animewallpaper"]
 P=[]
 # Open file before the loop to avoid NameError
-f = open("excuseapi.txt", "w+")
+f = open("../src/excuseapi.txt", "w+")
 
 client_id = 'Sbd6rbN5GdmpD7HyLxR83Q'         # Replace with your actual client ID
 client_secret = 'W10CzTls8Mfh6A6Tdl-4FsUUvw_CKw' # Replace with your actual client secret
