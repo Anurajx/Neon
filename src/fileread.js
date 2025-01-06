@@ -25,103 +25,114 @@ async function readTextFile(offset, limit) {
 async function loadImageLinks(offset = 0, limit = 10) {
   try {
     const imageLinks = await readTextFile(offset, limit);
-    const gallery = document.getElementById("gallery"); // Get the gallery div
-    // Iterate over each image link and create an img element
+    const gallery = document.getElementById("gallery");
+
     imageLinks.forEach((link) => {
-      const div = document.createElement("div"); //main div used as holder of each image
+      const div = document.createElement("div");
       div.id = link.trim();
-      div.classList.add("relative", "group", "overflow-hidden");
-      //download icon img
-      const img1 = document.createElement("img");
-      img1.classList.add(
+      div.classList.add(
         "relative",
         "group",
         "overflow-hidden",
-        "w-10",
         "cursor-pointer"
       );
-      img1.src = "./Media/downloadicon.png";
-      //download icon img
-      //download link
-      const downloadlink = document.createElement("a");
-      downloadlink.id = "downloadlink";
-      // Add click event listener to load image URL only when clicked
-      downloadlink.addEventListener("click", async (e) => {
-        e.preventDefault(); // Prevent default click behavior
 
-        try {
-          // Only fetch image URL if not already loaded
-          if (!downloadlink.href) {
-            const imageURL = await loadImages(link.trim());
-            if (imageURL) {
-              const tempLink = document.createElement("a");
-              tempLink.href = imageURL;
-              tempLink.download = ""; // Forces download
-              document.body.appendChild(tempLink);
-              tempLink.click(); // Programmatically trigger the download
-              document.body.removeChild(tempLink); // Cleanup
-            } else {
-              console.error("No imageURL generated");
-            }
-          }
-        } catch (err) {
-          console.error("Error in download process:", err);
-        }
-      });
-      //download link
-      //link tag reddit
-      const redditlink = document.createElement("a");
-      redditlink.href = link.trim();
-      //link tag reddit
-      //link img
-      const img2 = document.createElement("img");
-      img2.classList.add("relative", "group", "overflow-hidden", "w-10");
-      img2.src = "./Media/linkicon.png";
-      //link img
-
-      const img = document.createElement("img"); // Create an img tag
-      img.id = "imageid"; //using image src as image id
-      img.src = link.trim(); // Set the src to the image link
+      const img = document.createElement("img");
+      img.id = "imageid";
+      img.src = link.trim();
       img.alt = "yourwallpaper";
       img.classList.add(
         "brightness-100",
-        "transition", // Smooth transition for hover effect
-        "duration-500", // Duration of the transition
+        "transition",
+        "duration-500",
         "z-1",
-        "hover:shadow-lg", // Large shadow size on hover
+        "hover:shadow-lg",
         "hover:filter",
-        "hover:brightness-50", // Darken the image on hover
+        "hover:brightness-50",
         "rounded-md"
       );
-      const overlay = document.createElement("div");
-      overlay.classList.add(
-        "absolute",
-        "top-5",
-        "left-5",
-        "items-center",
-        "justify-center",
-        "bg-opacity-50",
-        "opacity-0",
-        "group-hover:opacity-100",
-        "text-white",
-        "flex",
-        "flex-row"
-      );
-      //to write text to overlay add below in quote
-      overlay.innerText = "";
 
-      //APPENDING
-      gallery.appendChild(div); // Add the img tag to the gallery
+      // Add click event listener to open modal
+      div.addEventListener("click", () => {
+        createImageModal(link.trim());
+      });
+
+      gallery.appendChild(div);
       div.appendChild(img);
-      div.appendChild(overlay);
-      overlay.appendChild(redditlink);
-      redditlink.appendChild(img2);
-      overlay.appendChild(downloadlink);
-      downloadlink.appendChild(img1);
     });
   } catch (error) {
     console.error("Error loading image links:", error);
   }
+}
+
+// New function to create and show modal
+function createImageModal(imageUrl) {
+  const modal = document.createElement("div");
+  modal.classList.add(
+    "fixed",
+    "inset-0",
+    "bg-black",
+    "bg-opacity-80",
+    "flex",
+    "items-center",
+    "justify-center",
+    "z-50"
+  );
+
+  const modalContent = `
+    <div class="relative max-w-4xl mx-auto">
+      <img src="${imageUrl}" alt="Full size wallpaper" class="max-h-[90vh] w-auto">
+      <div class="absolute top-4 right-4 flex gap-4">
+        <button onclick="window.open('${imageUrl}', '_blank')" class="bg-white p-2 rounded-full">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+          </svg>
+        </button>
+        <button class="download-btn bg-white p-2 rounded-full">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+        </button>
+        <button class="close-modal bg-white p-2 rounded-full">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  `;
+
+  modal.innerHTML = modalContent;
+
+  // Add event listeners
+  modal.querySelector(".close-modal").addEventListener("click", () => {
+    modal.remove();
+  });
+
+  modal.querySelector(".download-btn").addEventListener("click", async () => {
+    try {
+      const imageURL = await loadImages(imageUrl);
+      if (imageURL) {
+        const tempLink = document.createElement("a");
+        tempLink.href = imageURL;
+        tempLink.download = "";
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
+      }
+    } catch (err) {
+      console.error("Error in download process:", err);
+    }
+  });
+
+  // Close modal when clicking outside the image
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.remove();
+    }
+  });
+
+  document.body.appendChild(modal);
 }
 
 // Call the function to load the images on page load
