@@ -7,10 +7,10 @@ from requests.auth import HTTPBasicAuth
 L = ["wallpaper", "phonewallpapers", "iWallpaper", "Wallpaperdump", "Wallpaperengine", "wallpapers","WallpapersDoA", "Animewallpaper"]
 P=[]
 # Open file before the loop to avoid NameError
-f = open("src/excuseapi.txt", "w+")
+f = open("./src/excuseapi.txt", "w")
 
-client_id = 'Sbd6rbN5GdmpD7HyLxR83Q'         # Replace with your actual client ID
-client_secret = 'W10CzTls8Mfh6A6Tdl-4FsUUvw_CKw' # Replace with your actual client secret
+client_id = 'Sbd6rbN5GdmpD7HyLxR83Q'         
+client_secret = 'W10CzTls8Mfh6A6Tdl-4FsUUvw_CKw'
 auth = HTTPBasicAuth(client_id, client_secret)
 headers = {'User-Agent': 'Neon by AstralTesseract'}
 data = {'grant_type': 'client_credentials'}
@@ -26,9 +26,6 @@ access_token = response.json().get('access_token')
 
 for i in L:
     try:
-        # Add delay before each request to avoid rate limiting
-        time.sleep(2)  
-        
         # Randomize User-Agent to appear less bot-like
         user_agents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -74,8 +71,6 @@ for i in L:
     except (KeyError, ValueError) as e:
         print(f"Error parsing data from r/{i}: {e}")
         continue
-    # Adding delay between requests to avoid rate limiting
-    time.sleep(2)  
 print("saving images")
 for x in P:
     f.write(x+"\n")

@@ -14,7 +14,7 @@ async function loadImages(imagesrc) {
 
 // Function to read text file seprately
 async function readTextFile(offset, limit) {
-  const response = await fetch("excuseapi.txt"); // Fetch the text file
+  const response = await fetch("./excuseapi.txt"); // Fetch the text file
   const text = await response.text(); // Read the file content as text
   const imageLinks = text.split("\n").filter((link) => link.trim() !== "");
   const paginatedLinks = imageLinks.slice(offset, offset + limit);
